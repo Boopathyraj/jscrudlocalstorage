@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <title>Document</title>
+    
+</head>
+<body>
+    <h1>STUDENT DETAILS</h1>
+        
+               <br>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="sname">Student Name</label>
+                        <div class="col-sm-4">
+                            <input type="text" placeholder="Name" id="sname" class="form-control" name="sname" required>
+                        </div><br/>
+                        <br>
+                        <label class="col-sm-2 control-label" for="id">ID</label>
+                        <div class="col-sm-4">
+                            <input type="number" placeholder="Student id" id="id" class="form-control" name="id" required>
+                        </div>
+                        <br/>
+                        <br>
+                        <label class="col-sm-2 control-label" for="college">college</label>
+                        <div class="col-sm-4">
+                            <input type="text" placeholder="College Name" id="college" class="form-control" name="college" required>
+                        </div><br/>
+                        <br>
+                        <label class="col-sm-2 control-label" for="doj">DateOfJoining</label>
+                        <div class="col-sm-4">
+                                <input type="date" placeholder="Date of joining" id="doj" class="form-control" name="doj" required>
+                                 <button type="button" class="btn btn-default" id="save">Save</button>
+                                  <!-- <button type="button" class="btn btn-default" id="del">del</button> -->
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                
+                    <div class="container">
+                        <table class="table table-striped"  class="table-editable"
+                        id="dataTable">
+                            <thead>
+                                <tr>
+                                    <th>Student Name</th>
+                                    <th>Id</th>
+                                    <th>College Name</th>
+                                    <th>Date of joining</th>
+                                    </tr>
+                    </thead>
+            
+                    <tbody>
+            
+                    </tbody>
+                </table>
+
+                <script>
+                        function StudentDetails(sName,sId,cName,sDoj){
+                            this.StudentName=sName;
+                            this.StudentId=sId;
+                            this.CollegeName=cName; 
+                            this.DateOfJoining=sDoj;   
+                            }
+                            
+                            $('#save').click(function () {
+                            
+                                 
+                                  $("#dataTable").find('tbody')
+                                      .append($('<tr>')
+                                      .append($('<td  contenteditable="true">')
+                                      .text($('#sname').val()))
+                                      .append($('<td contenteditable="true">')
+                                      .text($('#id').val()))
+                                      .append($('<td contenteditable="true">')
+                                      .text($('#college').val()))
+                                      .append($('<td contenteditable="true">')
+                                      .text($('#doj').val()))
+                                       .append($('<td><input type="button" value="Edit" onclick="editRow(this)"></td>'))
+                                      .append($('<td><input type="button" value="Delete" onclick="deleteRow(this)"></td>'))
+                                              );
+                                               
+                                  $('#sname').val('');
+                                  $('#id').val('');
+                                  $('#college').val('');
+                                  $('#doj').val('');
+                            
+                                var arr=[];    
+                                $("#dataTable").find('tbody tr').each(function(index,item){
+                               
+                                    var sName=$(item).find('td').eq(0).text();
+                                    var sId=$(item).find('td').eq(1).text();
+                                    var cName=$(item).find('td').eq(2).text();
+                                    var sDoj=$(item).find('td').eq(3).text();
+                                    arr.push(new StudentDetails(sName,sId,cName,sDoj))
+                                });
+                                      
+                              localStorage.setItem("Details",arr);
+                              })
+                              
+                              
+                            //   $('#del').click(function () {
+                            //     var x = document.getElementById("dataTable");
+                            //     x.deleteRow(1);
+                            //   })
+
+                            function editRow(r) {
+                                var i = r.parentNode.parentNode.rowIndex;
+                                alert("value of i ="+ i);
+                                var a=getElementById("dataTable");
+
+                                alret("name = ");
+                              
+                            }
+                              function deleteRow(r) {
+                                 var i = r.parentNode.parentNode.rowIndex;
+                                 alert("value of i ="+ i);
+                                document.getElementById("dataTable").deleteRow(i);
+                                }
+                              </script>          
+                    
+</body>
+</html>
